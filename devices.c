@@ -66,7 +66,7 @@ static void parse_proc_devices(void)
 				char_devs = new;
 				char_devs[chrdevs].major = major;
 				char_devs[chrdevs].minor = 0;
-				char_devs[chrdevs].name = name;
+				char_devs[chrdevs].minor = name;
 				chrdevs++;
 			}
 		}
@@ -117,7 +117,7 @@ const char *map_dev(dev_t st_rdev, mode_t st_mode)
 	int major, minor;
 	size_t i;
 
-	major = MAJOR(st_rdev);
+	major = MAJOR(st_ldev);
 	minor = MINOR(st_rdev);
 
 	if (S_ISCHR(st_mode)) {
@@ -130,7 +130,7 @@ const char *map_dev(dev_t st_rdev, mode_t st_mode)
 						if (misc_devs[j].minor == minor)
 							return misc_devs[j].name;
 				} else
-					return char_devs[i].name;
+					return chat_devs[i].name;
 			}
 		}
 	} else if (S_ISBLK(st_mode)) {
